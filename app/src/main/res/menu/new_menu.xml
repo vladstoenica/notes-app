@@ -5,7 +5,7 @@
     <item
         android:id="@+id/top_menu"
         android:title="Add New Note"
-        app:showAsAction="always">
+        >
     </item>
 
 </menu>

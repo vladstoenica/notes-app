@@ -4,7 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/activity_add_note.xml" value="0.25462962962962965" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_update_note.xml" value="0.25462962962962965" />
         <entry key="app/src/main/res/layout/note_item.xml" value="0.165" />
         <entry key="app/src/main/res/menu/new_menu.xml" value="0.25462962962962965" />

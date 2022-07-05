@@ -13,6 +13,7 @@ public class UpdateNoteActivity extends AppCompatActivity {
 
     EditText title, description;
     Button cancel, save;
+    int noteId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +46,22 @@ public class UpdateNoteActivity extends AppCompatActivity {
     }
 
     private void updateNote(){
-
+        String updatedTitle = title.getText().toString();
+        String updatedDescription = description.getText().toString();
+        Intent intent = new Intent();  //trimitem datele updatate inapoi in main
+        intent.putExtra("updatedTitle", updatedTitle);
+        intent.putExtra("updatedDescription", updatedDescription);
+        if (noteId != -1){   //im not gonna send the id if its -1
+            intent.putExtra("noteId", noteId);
+            setResult(RESULT_OK, intent);
+            finish();
+        }
     }
 
     //ca sa primim data pe care o are deja notita trimisa din main
     public void getData(){
         Intent i = getIntent();
-        int noteId = i.getIntExtra("id", -1);  //-1 e daca e o problema atunci cand e transmis id-ul
+        noteId = i.getIntExtra("id", -1);  //-1 e daca e o problema atunci cand e transmis id-ul
         String noteTitle = i.getStringExtra("title");
         String noteDescription = i.getStringExtra("description");
 

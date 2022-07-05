@@ -18,7 +18,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -28,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     ActivityResultLauncher<Intent> activityResultLauncherForAddNote;  //alternativa mai fancy la startActivity(), trebuie declarata si registered in onCreate
     //ca sa fie clean, fac asta in metoda registerActivityForAddNote si doar o chem in onCreate
     ActivityResultLauncher<Intent> activityResultLauncherForUpdateNote;
+
+    private FloatingActionButton floatAddButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +91,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //pt add button
+        floatAddButton = findViewById(R.id.floatingActionButton);
+
+        floatAddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AddNoteActivity.class);
+                activityResultLauncherForAddNote.launch(intent);
+            }
+        });
+
     }
 
 
@@ -135,7 +151,18 @@ public class MainActivity extends AppCompatActivity {
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
+                        //primim inapoi data updatata
+                        int resultCode = result.getResultCode();
+                        Intent data = result.getData();
+                        if (resultCode == RESULT_OK && data != null){
+                            String title = data.getStringExtra("updatedTitle");
+                            String description = data.getStringExtra("updatedDescription");
+                            int id = data.getIntExtra("noteId", -1);
 
+                            Note note = new Note(title, description);
+                            note.setId(id);
+                            noteViewModel.update(note);
+                        }
                     }
                 });
     }
